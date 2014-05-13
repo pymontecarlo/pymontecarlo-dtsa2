@@ -18,7 +18,6 @@ __license__ = "GPL v3"
 
 # Standard library modules.
 import os
-import platform
 
 # Third party modules.
 
@@ -35,7 +34,7 @@ class _NistMonteConfigurePanelWidget(_ConfigurePanelWidget):
     def _initUI(self, settings):
         # Controls
         self._brw_java = FileBrowseWidget()
-        if platform.system() == 'Windows':
+        if os.name == 'nt':
             self._brw_java.setNameFilter('Application files (*.exe)')
         else:
             self._brw_java.setNameFilter('Application files (*)')
