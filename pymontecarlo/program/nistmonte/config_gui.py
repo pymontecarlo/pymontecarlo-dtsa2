@@ -68,8 +68,12 @@ class _NistMonteConfigurePanelWidget(_ConfigurePanelWidget):
         return layout
 
     def _onPathChanged(self, path):
-        self._brw_java.setBaseDir(path)
-        self._brw_jar.setBaseDir(path)
+        if not path:
+            return
+        if not self._brw_java.baseDir():
+            self._brw_java.setBaseDir(path)
+        if not self._brw_jar.baseDir():
+            self._brw_jar.setBaseDir(path)
 
     def hasAcceptableInput(self):
         if not self._brw_java.path():
