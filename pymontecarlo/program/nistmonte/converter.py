@@ -27,6 +27,7 @@ from pymontecarlo.program.converter import Converter as _Converter
 
 from pymontecarlo.options.particle import ELECTRON
 from pymontecarlo.options.beam import GaussianBeam, PencilBeam
+from pymontecarlo.options.material import Material
 from pymontecarlo.options.geometry import \
     Substrate, Inclusion, HorizontalLayers, VerticalLayers
 from pymontecarlo.options.limit import ShowersLimit
@@ -59,6 +60,8 @@ class Converter(_Converter):
     Converter for NistMonte simulation.
     """
 
+    PARTICLES = [ELECTRON]
+    MATERIALS = [Material]
     BEAMS = [GaussianBeam, PencilBeam]
     GEOMETRIES = [Substrate, Inclusion, HorizontalLayers, VerticalLayers]
     DETECTORS = [
@@ -119,11 +122,6 @@ class Converter(_Converter):
 
     def _convert_beam(self, options):
         if not _Converter._convert_beam(self, options):
-            return False
-
-        if options.beam.particle is not ELECTRON:
-            self._warn("Beam particle must be ELECTRON",
-                       "This options definition was removed.")
             return False
 
         if options.beam.energy_eV < 100:
