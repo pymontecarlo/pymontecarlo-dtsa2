@@ -59,17 +59,14 @@ class Worker(_Worker):
         args += [xmlfilepath]
         logging.debug('Launching %s', ' '.join(args))
 
-        with subprocess.Popen(args, stdout=subprocess.PIPE) as self._process:
-            for line in iter(self._process.stdout.readline, b""):
+        with self._create_process(args, stdout=subprocess.PIPE) as process:
+            for line in iter(process.stdout.readline, b""):
                 infos = line.decode('ascii').split('\t')
                 if len(infos) == 2:
                     self._progress = float(infos[0])
                     self._status = infos[1].strip()
 
-            self._process.wait()
-            retcode = self._process.returncode
-
-        self._process = None
+        retcode = self._join_process()
 
         if retcode != 0:
             raise RuntimeError("An error occurred during the simulation")
