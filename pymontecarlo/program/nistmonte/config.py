@@ -24,8 +24,8 @@ import os
 # Local modules.
 from pymontecarlo.settings import get_settings
 from pymontecarlo.program.config import Program
-from pymontecarlo.program.exporter import XMLExporter
-from pymontecarlo.program.importer import HDF5Importer
+from pymontecarlo.program.nistmonte.exporter import Exporter
+from pymontecarlo.program.nistmonte.importer import Importer
 from pymontecarlo.program.nistmonte.converter import Converter
 from pymontecarlo.program.nistmonte.worker import Worker
 
@@ -35,7 +35,7 @@ class _NISTMonteProgram(Program):
 
     def __init__(self):
         Program.__init__(self, 'NISTMonte', 'nistmonte',
-                         Converter, Worker, XMLExporter, HDF5Importer)
+                         Converter, Worker, Exporter, Importer)
 
     def validate(self):
         settings = get_settings()

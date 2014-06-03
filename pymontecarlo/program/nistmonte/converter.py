@@ -32,22 +32,14 @@ from pymontecarlo.options.geometry import \
     Substrate, Inclusion, HorizontalLayers, VerticalLayers
 from pymontecarlo.options.limit import ShowersLimit
 from pymontecarlo.options.detector import \
-    (
-#     BackscatteredElectronAzimuthalAngularDetector,
-#     BackscatteredElectronEnergyDetector,
-#     BackscatteredElectronPolarAngularDetector,
-     BackscatteredElectronRadialDetector,
+    (BackscatteredElectronRadialDetector,
      PhotonDepthDetector,
      PhotonRadialDetector,
      PhotonIntensityDetector,
      PhotonEmissionMapDetector,
      PhotonSpectrumDetector,
-#     TransmittedElectronAzimuthalAngularDetector,
-#     TransmittedElectronEnergyDetector,
-#     TransmittedElectronPolarAngularDetector,
      TimeDetector,
      TrajectoryDetector,
-#     ElectronFractionDetector
      )
 from pymontecarlo.options.model import \
     (ELASTIC_CROSS_SECTION, IONIZATION_CROSS_SECTION, IONIZATION_POTENTIAL,
@@ -64,23 +56,14 @@ class Converter(_Converter):
     MATERIALS = [Material]
     BEAMS = [GaussianBeam, PencilBeam]
     GEOMETRIES = [Substrate, Inclusion, HorizontalLayers, VerticalLayers]
-    DETECTORS = [
-                 #BackscatteredElectronAzimuthalAngularDetector,
-                 #BackscatteredElectronEnergyDetector,
-                 #BackscatteredElectronPolarAngularDetector,
-                 #EnergyDepositedSpatialDetector,
-                 BackscatteredElectronRadialDetector,
+    DETECTORS = [BackscatteredElectronRadialDetector,
                  PhotonDepthDetector,
                  PhotonRadialDetector,
                  PhotonIntensityDetector,
                  PhotonEmissionMapDetector,
                  PhotonSpectrumDetector,
-                 #TransmittedElectronAzimuthalAngularDetector,
-                 #TransmittedElectronEnergyDetector,
-                 #TransmittedElectronPolarAngularDetector,
                  TimeDetector,
                  TrajectoryDetector,
-                 #ElectronFractionDetector
                  ]
     LIMITS = [ShowersLimit]
     MODELS = {ELASTIC_CROSS_SECTION: [ELASTIC_CROSS_SECTION.mott_czyzewski1990,
