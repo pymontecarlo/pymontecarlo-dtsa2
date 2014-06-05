@@ -31,7 +31,7 @@ from pymontecarlo.ui.gui.util.widget import FileBrowseWidget
 
 class _NistMonteConfigurePanelWidget(_ConfigurePanelWidget):
 
-    def _initUI(self, settings):
+    def _initUI(self):
         # Controls
         self._brw_java = FileBrowseWidget()
         if os.name == 'nt':
@@ -43,27 +43,13 @@ class _NistMonteConfigurePanelWidget(_ConfigurePanelWidget):
         self._brw_jar.setNameFilter('Jar files (*.jar)')
 
         # Layouts
-        layout = _ConfigurePanelWidget._initUI(self, settings)
+        layout = _ConfigurePanelWidget._initUI(self)
         layout.addRow('Path to Java executable', self._brw_java)
         layout.addRow('Path to pymontecarlo-nistmonte jar', self._brw_jar)
 
         # Signals
         self._brw_java.pathChanged.connect(self._onPathChanged)
         self._brw_jar.pathChanged.connect(self._onPathChanged)
-
-        # Defaults
-        if 'nistmonte' in settings:
-            path = getattr(settings.nistmonte, 'java', None)
-            try:
-                self._brw_java.setPath(path)
-            except ValueError:
-                pass
-
-            path = getattr(settings.nistmonte, 'jar', None)
-            try:
-                self._brw_jar.setPath(path)
-            except ValueError:
-                pass
 
         return layout
 
@@ -83,6 +69,20 @@ class _NistMonteConfigurePanelWidget(_ConfigurePanelWidget):
         if not self._brw_jar.path():
             return False
         return True
+
+    def setSettings(self, settings):
+        if 'nistmonte' in settings:
+            path = getattr(settings.nistmonte, 'java', None)
+            try:
+                self._brw_java.setPath(path)
+            except ValueError:
+                pass
+
+            path = getattr(settings.nistmonte, 'jar', None)
+            try:
+                self._brw_jar.setPath(path)
+            except ValueError:
+                pass
 
     def updateSettings(self, settings):
         section = _ConfigurePanelWidget.updateSettings(self, settings)

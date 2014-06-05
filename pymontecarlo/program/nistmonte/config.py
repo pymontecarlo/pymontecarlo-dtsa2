@@ -18,6 +18,7 @@ __license__ = "GPL v3"
 
 # Standard library modules.
 import os
+import subprocess
 
 # Third party modules.
 
@@ -60,5 +61,27 @@ class _NISTMonteProgram(Program):
             raise AssertionError("Specified jar path (%s) does not exist" % jar)
         if os.path.splitext(jar)[1] != '.jar':
             raise AssertionError("Specified jar path (%s) is not a jar" % jar)
+
+    def autoconfig(self, programs_path):
+        settings = get_settings()
+
+        # Java
+        try:
+            if os.name == 'posix':
+                java_path = subprocess.check_output(['which', 'java'])
+            else:
+                java_path = subprocess.check_output('for %i in (java.exe) do @echo.   %~$PATH:i', shell=True)
+            java_path = java_path.decode('ascii').strip()
+        except subprocess.CalledProcessError:
+            return False
+        settings.add_section('nistmonte').java = java_path
+
+        # jar
+        jar_path = os.path.join(programs_path, self.alias, 'pymontecarlo-nistmonte.jar')
+        if not os.path.exists(jar_path):
+            return False
+        settings.add_section('nistmonte').jar = jar_path
+
+        return True
 
 program = _NISTMonteProgram()
