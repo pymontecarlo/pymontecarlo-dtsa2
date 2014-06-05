@@ -40,13 +40,9 @@ class Worker(_Worker):
         _Worker.__init__(self, program)
 
         self._java_exec = get_settings().nistmonte.java
-        if not os.path.isfile(self._java_exec):
-            raise IOError('Java executable (%s) cannot be found' % self._java_exec)
         logging.debug('Java executable: %s', self._java_exec)
 
         self._jar_path = get_settings().nistmonte.jar
-        if not os.path.isfile(self._jar_path):
-            raise IOError('pyMonteCarlo jar (%s) cannot be found' % self._jar_path)
         logging.debug('pyMonteCarlo jar path: %s', self._jar_path)
 
     def run(self, options, outputdir, workdir):
