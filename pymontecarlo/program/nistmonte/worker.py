@@ -67,4 +67,4 @@ class Worker(_Worker):
         if retcode != 0:
             raise RuntimeError("An error occurred during the simulation")
 
-        return self._importer.import_(options, workdir)
+        return self.import_(options, workdir)
