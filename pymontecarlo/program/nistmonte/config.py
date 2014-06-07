@@ -18,6 +18,7 @@ __license__ = "GPL v3"
 
 # Standard library modules.
 import os
+import sys
 import subprocess
 
 # Third party modules.
@@ -77,9 +78,14 @@ class _NISTMonteProgram(Program):
         settings.add_section('nistmonte').java = java_path
 
         # jar
-        jar_path = os.path.join(programs_path, self.alias, 'pymontecarlo-nistmonte.jar')
-        if not os.path.exists(jar_path):
-            return False
+        if sys.platform == 'linux':
+            jar_path = '/usr/share/libpymontecarlo-java/lib/pymontecarlo-dtsa.jar'
+            if not os.path.exists(jar_path):
+                return False
+        else:
+            jar_path = os.path.join(programs_path, self.alias, 'pymontecarlo-nistmonte.jar')
+            if not os.path.exists(jar_path):
+                return False
         settings.add_section('nistmonte').jar = jar_path
 
         return True
