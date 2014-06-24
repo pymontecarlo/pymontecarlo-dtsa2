@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """
 ================================================================================
-:mod:`config` -- NISTMonte Monte Carlo program configuration
+:mod:`config` -- XPP program configuration
 ================================================================================
 
 .. module:: config
-   :synopsis: NISTMonte Monte Carlo program configuration
+   :synopsis: XPP program configuration
 
 """
 
@@ -26,38 +26,38 @@ import subprocess
 # Local modules.
 from pymontecarlo.settings import get_settings
 from pymontecarlo.program.config import Program
-from pymontecarlo.program.nistmonte.exporter import Exporter
-from pymontecarlo.program.nistmonte.importer import Importer
-from pymontecarlo.program.nistmonte.converter import Converter
-from pymontecarlo.program.nistmonte.worker import Worker
+from pymontecarlo.program.xpp.exporter import Exporter
+from pymontecarlo.program.xpp.importer import Importer
+from pymontecarlo.program.xpp.converter import Converter
+from pymontecarlo.program.xpp.worker import Worker
 
 # Globals and constants variables.
 
-class _NISTMonteProgram(Program):
+class _XPPProgram(Program):
 
     def __init__(self):
-        Program.__init__(self, 'NISTMonte', 'nistmonte',
+        Program.__init__(self, 'XPP', 'xpp',
                          Converter, Worker, Exporter, Importer)
 
     def validate(self):
         settings = get_settings()
 
-        if 'nistmonte' not in settings:
-            raise AssertionError("Missing 'nistmonte' section in settings")
+        if 'xpp' not in settings:
+            raise AssertionError("Missing 'xpp' section in settings")
 
-        if 'java' not in settings.nistmonte:
-            raise AssertionError("Missing 'java' option in 'nistmonte' section of settings")
+        if 'java' not in settings.xpp:
+            raise AssertionError("Missing 'java' option in 'xpp' section of settings")
 
-        java = settings.nistmonte.java
+        java = settings.xpp.java
         if not os.path.isfile(java):
             raise AssertionError("Specified Java executable (%s) does not exist" % java)
         if not os.access(java, os.X_OK):
             raise AssertionError("Specified Java executable (%s) is not executable" % java)
 
-        if 'jar' not in settings.nistmonte:
-            raise AssertionError("Missing 'jar' option in 'nistmonte' section of settings")
+        if 'jar' not in settings.xpp:
+            raise AssertionError("Missing 'jar' option in 'xpp' section of settings")
 
-        jar = settings.nistmonte.jar
+        jar = settings.xpp.jar
         if not os.path.isfile(jar):
             raise AssertionError("Specified jar path (%s) does not exist" % jar)
         if os.path.splitext(jar)[1] != '.jar':
@@ -75,19 +75,19 @@ class _NISTMonteProgram(Program):
             java_path = java_path.decode('ascii').strip()
         except subprocess.CalledProcessError:
             return False
-        settings.add_section('nistmonte').java = java_path
+        settings.add_section('xpp').java = java_path
 
         # jar
         if sys.platform == 'linux':
-            jar_path = '/usr/share/libpymontecarlo-java/lib/pymontecarlo-dtsa2-nistmonte.jar'
+            jar_path = '/usr/share/libpymontecarlo-java/lib/pymontecarlo-dtsa2-xpp.jar'
             if not os.path.exists(jar_path):
                 return False
         else:
-            jar_path = os.path.join(programs_path, self.alias, 'pymontecarlo-dtsa2-nistmonte.jar')
+            jar_path = os.path.join(programs_path, self.alias, 'pymontecarlo-dtsa2-xpp.jar')
             if not os.path.exists(jar_path):
                 return False
-        settings.add_section('nistmonte').jar = jar_path
+        settings.add_section('xpp').jar = jar_path
 
         return True
 
-program = _NISTMonteProgram()
+program = _XPPProgram()

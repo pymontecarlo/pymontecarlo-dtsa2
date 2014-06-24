@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """
 ================================================================================
-:mod:`config_gui` -- NISTMonte Monte Carlo program GUI configuration
+:mod:`config_gui` -- PAP program GUI configuration
 ================================================================================
 
 .. module:: config_gui
-   :synopsis: NISTMonte Monte Carlo program GUI configuration
+   :synopsis: PAP program GUI configuration
 
 """
 
@@ -23,13 +23,13 @@ import os
 
 # Local modules.
 from pymontecarlo.program.config_gui import GUI, _ConfigurePanelWidget
-from pymontecarlo.program.nistmonte.config import program
+from pymontecarlo.program.pap.config import program
 
 from pymontecarlo.ui.gui.util.widget import FileBrowseWidget
 
 # Globals and constants variables.
 
-class _NistMonteConfigurePanelWidget(_ConfigurePanelWidget):
+class _PAPConfigurePanelWidget(_ConfigurePanelWidget):
 
     def _initUI(self):
         # Controls
@@ -45,7 +45,7 @@ class _NistMonteConfigurePanelWidget(_ConfigurePanelWidget):
         # Layouts
         layout = _ConfigurePanelWidget._initUI(self)
         layout.addRow('Path to Java executable', self._brw_java)
-        layout.addRow('Path to pymontecarlo-dtsa2-nistmonte.jar', self._brw_jar)
+        layout.addRow('Path to pymontecarlo-dtsa2-pap.jar', self._brw_jar)
 
         # Signals
         self._brw_java.pathChanged.connect(self._onPathChanged)
@@ -71,14 +71,14 @@ class _NistMonteConfigurePanelWidget(_ConfigurePanelWidget):
         return True
 
     def setSettings(self, settings):
-        if 'nistmonte' in settings:
-            path = getattr(settings.nistmonte, 'java', None)
+        if 'pap' in settings:
+            path = getattr(settings.pap, 'java', None)
             try:
                 self._brw_java.setPath(path)
             except ValueError:
                 pass
 
-            path = getattr(settings.nistmonte, 'jar', None)
+            path = getattr(settings.pap, 'jar', None)
             try:
                 self._brw_jar.setPath(path)
             except ValueError:
@@ -90,7 +90,7 @@ class _NistMonteConfigurePanelWidget(_ConfigurePanelWidget):
         section.jar = self._brw_jar.path()
         return section
 
-class _NistMonteGUI(GUI):
+class _PAPGUI(GUI):
 
     def create_configure_panel(self, parent=None):
         """
@@ -99,6 +99,6 @@ class _NistMonteGUI(GUI):
         :arg parent: parent window
         :arg settings: settings object
         """
-        return _NistMonteConfigurePanelWidget(program, parent)
+        return _PAPConfigurePanelWidget(program, parent)
 
-gui = _NistMonteGUI()
+gui = _PAPGUI()

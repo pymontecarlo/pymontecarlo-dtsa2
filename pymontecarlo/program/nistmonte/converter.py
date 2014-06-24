@@ -33,7 +33,7 @@ from pymontecarlo.options.geometry import \
 from pymontecarlo.options.limit import ShowersLimit
 from pymontecarlo.options.detector import \
     (BackscatteredElectronRadialDetector,
-     PhotonDepthDetector,
+     PhiZDetector,
      PhotonRadialDetector,
      PhotonIntensityDetector,
      PhotonEmissionMapDetector,
@@ -57,7 +57,7 @@ class Converter(_Converter):
     BEAMS = [GaussianBeam, PencilBeam]
     GEOMETRIES = [Substrate, Inclusion, HorizontalLayers, VerticalLayers]
     DETECTORS = [BackscatteredElectronRadialDetector,
-                 PhotonDepthDetector,
+                 PhiZDetector,
                  PhotonRadialDetector,
                  PhotonIntensityDetector,
                  PhotonEmissionMapDetector,

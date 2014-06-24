@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """
 ================================================================================
-:mod:`config_cli` -- NISTMonte Monte Carlo program CLI configuration
+:mod:`config_cli` -- XPP program CLI configuration
 ================================================================================
 
 .. module:: config_cli
-   :synopsis: NISTMonte Monte Carlo program CLI configuration
+   :synopsis: XPP program CLI configuration
 
 """
 
@@ -26,10 +26,10 @@ from pymontecarlo.program.config_cli import CLI
 
 # Globals and constants variables.
 
-class _NISTMonteCLI(CLI):
+class _XPPCLI(CLI):
 
     def configure(self, console, settings):
-        section = settings.add_section('nistmonte')
+        section = settings.add_section('xpp')
 
         # java
         question = 'Path to Java executable'
@@ -38,9 +38,9 @@ class _NISTMonteCLI(CLI):
             console.prompt_file(question, default, should_exist=True, mode=os.X_OK)
 
         # jar
-        question = 'Path to pymontecarlo-dtsa2-nistmonte.jar'
+        question = 'Path to pymontecarlo-dtsa2-xpp.jar'
         default = getattr(section, 'jar', None)
         section.jar = \
             console.prompt_file(question, default, should_exist=True, ext='.jar')
 
-cli = _NISTMonteCLI()
+cli = _XPPCLI()

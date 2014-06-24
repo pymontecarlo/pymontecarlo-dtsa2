@@ -17,7 +17,7 @@ from pymontecarlo.util.dist.command import clean
 
 # Globals and constants variables.
 
-setup(name="pyMonteCarlo-NISTMonte",
+setup(name="pyMonteCarlo-DTSA2",
       version='0.1',
       url='http://pymontecarlo.bitbucket.org',
       description="Python interface for Monte Carlo simulation programs",
@@ -40,11 +40,21 @@ setup(name="pyMonteCarlo-NISTMonte",
       cmdclass={'clean': clean},
 
       entry_points={'pymontecarlo.program':
-                        'nistmonte=pymontecarlo.program.nistmonte.config:program',
+                        ['nistmonte=pymontecarlo.program.nistmonte.config:program',
+                         'pap=pymontecarlo.program.pap.config:program',
+                         'xpp=pymontecarlo.program.xpp.config:program',
+                         'proza=pymontecarlo.program.proza.config:program'],
                     'pymontecarlo.program.cli':
-                        'nistmonte=pymontecarlo.program.nistmonte.config_cli:cli',
+                        ['nistmonte=pymontecarlo.program.nistmonte.config_cli:cli',
+                         'pap=pymontecarlo.program.pap.config_cli:cli',
+                         'xpp=pymontecarlo.program.xpp.config_cli:cli',
+                         'proza=pymontecarlo.program.proza.config_cli:cli'],
                     'pymontecarlo.program.gui':
-                        'nistmonte=pymontecarlo.program.nistmonte.config_gui:gui', },
+                        ['nistmonte=pymontecarlo.program.nistmonte.config_gui:gui',
+                         'pap=pymontecarlo.program.pap.config_gui:gui',
+                         'xpp=pymontecarlo.program.xpp.config_gui:gui',
+                         'proza=pymontecarlo.program.proza.config_gui:gui']
+                    },
 
       test_suite='nose.collector',
 )
