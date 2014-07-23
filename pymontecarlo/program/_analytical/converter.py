@@ -31,7 +31,8 @@ from pymontecarlo.options.material import Material
 from pymontecarlo.options.geometry import Substrate
 from pymontecarlo.options.detector import PhotonIntensityDetector, PhiZDetector
 from pymontecarlo.options.model import \
-    IONIZATION_CROSS_SECTION, MASS_ABSORPTION_COEFFICIENT
+    (IONIZATION_CROSS_SECTION, MASS_ABSORPTION_COEFFICIENT,
+     UserDefinedMassAbsorptionCoefficientModel)
 
 # Globals and constants variables.
 
@@ -55,7 +56,8 @@ class Converter(_Converter):
                                             MASS_ABSORPTION_COEFFICIENT.heinrich_ixcom11_dtsa,
                                             MASS_ABSORPTION_COEFFICIENT.henke1993,
                                             MASS_ABSORPTION_COEFFICIENT.none,
-                                            MASS_ABSORPTION_COEFFICIENT.pouchou_pichoir1991],
+                                            MASS_ABSORPTION_COEFFICIENT.pouchou_pichoir1991,
+                                            UserDefinedMassAbsorptionCoefficientModel],
               }
     DEFAULT_MODELS = {IONIZATION_CROSS_SECTION: IONIZATION_CROSS_SECTION.bote_salvat2008,
                       MASS_ABSORPTION_COEFFICIENT: MASS_ABSORPTION_COEFFICIENT.chantler2005}
@@ -68,5 +70,5 @@ class Converter(_Converter):
 
                 self._warn("Limit of type '%s' cannot be converted." % clasz.__name__,
                            "It was removed")
-        
+
         return True
