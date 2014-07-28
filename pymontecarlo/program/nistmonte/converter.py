@@ -43,7 +43,8 @@ from pymontecarlo.options.detector import \
      )
 from pymontecarlo.options.model import \
     (ELASTIC_CROSS_SECTION, IONIZATION_CROSS_SECTION, IONIZATION_POTENTIAL,
-     ENERGY_LOSS, MASS_ABSORPTION_COEFFICIENT, FLUORESCENCE)
+     ENERGY_LOSS, MASS_ABSORPTION_COEFFICIENT, FLUORESCENCE,
+     UserDefinedMassAbsorptionCoefficientModel)
 
 # Globals and constants variables.
 
@@ -91,7 +92,8 @@ class Converter(_Converter):
                                             MASS_ABSORPTION_COEFFICIENT.heinrich_ixcom11_dtsa,
                                             MASS_ABSORPTION_COEFFICIENT.henke1993,
                                             MASS_ABSORPTION_COEFFICIENT.none,
-                                            MASS_ABSORPTION_COEFFICIENT.pouchou_pichoir1991],
+                                            MASS_ABSORPTION_COEFFICIENT.pouchou_pichoir1991,
+                                            UserDefinedMassAbsorptionCoefficientModel],
               FLUORESCENCE: [FLUORESCENCE.none,
                              FLUORESCENCE.fluorescence,
                              FLUORESCENCE.fluorescence_compton]}
