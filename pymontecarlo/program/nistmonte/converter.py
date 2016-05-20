@@ -26,7 +26,7 @@ __license__ = "GPL v3"
 from pymontecarlo.program.converter import Converter as _Converter
 
 from pymontecarlo.options.particle import ELECTRON
-from pymontecarlo.options.beam import GaussianBeam, PencilBeam
+from pymontecarlo.options.beam import GaussianBeam, PencilBeam, GaussianExpTailBeam
 from pymontecarlo.options.material import Material
 from pymontecarlo.options.geometry import \
     Substrate, Inclusion, HorizontalLayers, VerticalLayers
@@ -55,7 +55,7 @@ class Converter(_Converter):
 
     PARTICLES = [ELECTRON]
     MATERIALS = [Material]
-    BEAMS = [GaussianBeam, PencilBeam]
+    BEAMS = [GaussianBeam, PencilBeam, GaussianExpTailBeam]
     GEOMETRIES = [Substrate, Inclusion, HorizontalLayers, VerticalLayers]
     DETECTORS = [BackscatteredElectronRadialDetector,
                  PhiZDetector,
